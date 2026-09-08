@@ -1,0 +1,32 @@
+# Build output
+*.dll
+*.pdb
+bin/
+obj/
+build/
+!scripts/tasks/build/
+!scripts/tasks/build/*.sh
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# User runtime data
+/Settings.xml
+/UpdateSettings.json
+/Runtime/
+/Sprites/
+
+# Logs and caches
+*.log
+*.cache
+*.tmp
+
+# IDE and OS files
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+.DS_Store

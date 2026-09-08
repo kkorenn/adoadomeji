@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../Adomeji/Gameplay/Events/JudgementKind.cs" Link="Source/JudgementKind.cs" />
+    <Compile Include="../Adomeji/Gameplay/Events/JudgementMapper.cs" Link="Source/JudgementMapper.cs" />
+    <Compile Include="../Adomeji/Gameplay/Events/RunJudgementTracker.cs" Link="Source/RunJudgementTracker.cs" />
+    <Compile Include="../Adomeji/Sprites/Selection/WeightedIndexSelector.cs" Link="Source/WeightedIndexSelector.cs" />
+    <Compile Include="../Adomeji/Shared/Text/NaturalStringComparer.cs" Link="Source/NaturalStringComparer.cs" />
+    <Compile Include="../Adomeji/Sprites/Formats/ActionsXmlParser.cs" Link="Source/ActionsXmlParser.cs" />
+    <Compile Include="../Adomeji/Pets/Physics/SurfaceGeometry.cs" Link="Source/SurfaceGeometry.cs" />
+    <Compile Include="../Adomeji/Pets/Physics/SweptCollision.cs" Link="Source/SweptCollision.cs" />
+    <Compile Include="../Adomeji/Pets/Physics/PortalMath.cs" Link="Source/PortalMath.cs" />
+    <Compile Include="../Adomeji/Settings/AdomejiSettings.cs" Link="Source/AdomejiSettings.cs" />
+    <Compile Include="../Adomeji/Sprites/Configuration/SpriteRoleEntryParser.cs" Link="Source/SpriteRoleEntryParser.cs" />
+    <Compile Include="../Adomeji/Shared/Diagnostics/IModLogger.cs" Link="Source/IModLogger.cs" />
+    <Compile Include="../Adomeji/Pets/Runtime/IPetRuntime.cs" Link="Source/IPetRuntime.cs" />
+    <Compile Include="../Adomeji/Pets/Runtime/IPetFlock.cs" Link="Source/IPetFlock.cs" />
+    <Compile Include="../Adomeji/Pets/Runtime/PetRuntime.cs" Link="Source/PetRuntime.cs" />
+    <Compile Include="../Adomeji/Pets/Runtime/SimulationFrameDelta.cs" Link="Source/SimulationFrameDelta.cs" />
+    <Compile Include="../Adomeji/UI/Input/IKeyInput.cs" Link="Source/IKeyInput.cs" />
+    <Compile Include="../Adomeji/UI/Input/SettingsHotkeyController.cs" Link="Source/SettingsHotkeyController.cs" />
+    <Compile Include="../Adomeji/UI/SettingsWindowLifecycle.cs" Link="Source/SettingsWindowLifecycle.cs" />
+  </ItemGroup>
+</Project>
