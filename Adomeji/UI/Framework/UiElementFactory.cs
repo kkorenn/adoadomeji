@@ -80,12 +80,17 @@ internal sealed class UiElementFactory
       return row;
   }
 
-  /// <summary>Full-width toggle row. Returns the row GameObject (for show/hide).</summary>
+  /// <summary>Full-width toggle row. Returns the row GameObject (for show/hide).
+  /// A nested toggle is drawn smaller and indented under the toggle above it.</summary>
   public GameObject AddToggle(RectTransform page, string label,
-      Func<bool> get, Action<bool> set, int indent = 0)
+      Func<bool> get, Action<bool> set, bool nested = false)
   {
+      int indent = nested ? 34 : 0;
+      float boxSize = nested ? 18 : 24;
+      int fontSize = nested ? 14 : 17;
+
       var row = NewRect("Toggle", page);
-      row.gameObject.AddComponent<LayoutElement>().minHeight = 34;
+      row.gameObject.AddComponent<LayoutElement>().minHeight = nested ? 26 : 34;
 
       // invisible full-row image so the whole row is clickable
       var rowImg = row.gameObject.AddComponent<Image>();
@@ -96,20 +101,20 @@ internal sealed class UiElementFactory
       var box = NewRect("Box", row);
       box.anchorMin = box.anchorMax = new Vector2(0, 0.5f);
       box.pivot = new Vector2(0, 0.5f);
-      box.sizeDelta = new Vector2(24, 24);
+      box.sizeDelta = new Vector2(boxSize, boxSize);
       box.anchoredPosition = new Vector2(indent, 0);
       var boxImg = box.gameObject.AddComponent<Image>();
       boxImg.color = new Color(0.24f, 0.26f, 0.33f, 1f);
       boxImg.raycastTarget = false;
 
-      var check = MakeText(box, "Check", "✓", 18, _theme.Accent, TextAnchor.MiddleCenter);
+      var check = MakeText(box, "Check", "✓", fontSize + 1, _theme.Accent, TextAnchor.MiddleCenter);
       Stretch(check, 0, 0, 1, 1);
       var checkImg = check.GetComponent<Text>();
       checkImg.raycastTarget = false;
 
-      var text = MakeText(row, "Label", label, 17, _theme.Text, TextAnchor.MiddleLeft);
+      var text = MakeText(row, "Label", label, fontSize, _theme.Text, TextAnchor.MiddleLeft);
       Stretch(text, 0, 0, 1, 1);
-      text.offsetMin = new Vector2(indent + 34, 0);
+      text.offsetMin = new Vector2(indent + boxSize + 10, 0);
       text.offsetMax = new Vector2(0, 0);
       text.GetComponent<Text>().raycastTarget = false;
 

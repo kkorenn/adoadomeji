@@ -37,20 +37,19 @@ internal sealed class BehaviorTabPresenter : ISettingsTabPresenter
       _ui.AddToggle(page, "Remove the walls",
           () => _settings.NoWall,
           v => _settings.NoWall = v);
+      var horizontalPortalRow = _ui.AddToggle(page, "Portal mode: left and right",
+          () => _settings.WrapWall,
+          v => _settings.WrapWall = v, nested: true);
+      _bindings.Add(() => horizontalPortalRow.SetActive(_settings.NoWall));
+
       _ui.AddToggle(page, "Remove the ceiling",
           () => _settings.NoCeiling,
           v => _settings.NoCeiling = v);
-
       var verticalPortalRow = _ui.AddToggle(page, "Portal mode: top and bottom",
           () => _settings.WrapFloor,
-          v => _settings.WrapFloor = _settings.WrapCeiling = v);
+          v => _settings.WrapFloor = _settings.WrapCeiling = v, nested: true);
       _bindings.Add(() => verticalPortalRow.SetActive(
           _settings.NoFloor || _settings.NoCeiling));
-
-      var horizontalPortalRow = _ui.AddToggle(page, "Portal mode: left and right",
-          () => _settings.WrapWall,
-          v => _settings.WrapWall = v);
-      _bindings.Add(() => horizontalPortalRow.SetActive(_settings.NoWall));
 
       _ui.AddToggle(page, "Pets ride planets",
           () => _settings.RidePlanets,
