@@ -1,0 +1,22 @@
+Adomeji/UI/Tabs/BehaviorTabPresenter.cs
+  s_2227502f3d7e07::t_1a5e43d0b9a406 40-44,50
+Adomeji/UI/Framework/UiElementFactory.cs
+  s_2227502f3d7e07::t_4a18cc7e538bb8 104,110,115,117
+  s_2227502f3d7e07::t_a21f14e4843d1a 83-84,86,88-91,93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6de8568e5873d7ded48341527f9532a02edc2c71",
+  "prompts": {},
+  "sessions": {
+    "s_2227502f3d7e07": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f506a6ce-bd8b-40f4-8c78-cdb6f9fbc3ac",
+        "model": "claude-opus-5"
+      },
+      "human_author": "koren <131921956+kkorenn@users.noreply.github.com>"
+    }
+  }
+}
