@@ -57,28 +57,33 @@ internal sealed class GameplayPatchInstaller : IDisposable
 
     Capabilities.Judgements = InstallJudgementPatch();
 
-    int release = GameRelease();
-
     Capabilities.Overpress = TryPatchPostfix(
       typeof(scrHitTextManager),
       "ShowHitText",
       nameof(GameplayPatchBridge.OverpressPostfix),
-      release >= MsDiffHitTextRelease
-        ? new[] { typeof(HitMargin), typeof(scrPlanet), typeof(float), typeof(int?) }
-        : new[] { typeof(HitMargin), typeof(scrPlanet), typeof(float) }
+      ShowHitTextParameters()
     );
 
     Capabilities.MouseSuppression = InstallMouseSuppressionPatches();
 
     _installed = true;
-    _logger.Info("[Harmony] Gameplay patches installed for ADOFAI r" + release + ".");
+    _logger.Info("[Harmony] Gameplay patches installed for ADOFAI r" + GameRelease() + ".");
   }
 
   // r150 added an `int? msDiffNullable` parameter to scrHitTextManager.ShowHitText.
-  private const int MsDiffHitTextRelease = 150;
+  // Probe for the overload instead of gating on the release number: the signature
+  // is what the patch actually needs, and it can move independently of releases.
+  private static Type[] ShowHitTextParameters()
+  {
+    Type[] withMsDiff = { typeof(HitMargin), typeof(scrPlanet), typeof(float), typeof(int?) };
+    return AccessTools.Method(typeof(scrHitTextManager), "ShowHitText", withMsDiff) != null
+      ? withMsDiff
+      : new[] { typeof(HitMargin), typeof(scrPlanet), typeof(float) };
+  }
 
-  // releaseNumber is a const, so it must be read by reflection; a direct
-  // reference would bake in the release this assembly was compiled against.
+  // Diagnostics only — never gate behaviour on this; probe for the member you
+  // need instead. releaseNumber is a const, so it must be read by reflection; a
+  // direct reference would bake in the release this assembly was compiled against.
   private static int GameRelease()
   {
     Assembly game = typeof(scrController).Assembly;
