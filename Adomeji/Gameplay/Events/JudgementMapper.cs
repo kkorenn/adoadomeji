@@ -8,6 +8,12 @@ internal static class JudgementMapper
     {
       case "Auto": return JudgementKind.Auto;
       case "Perfect": return JudgementKind.Perfect;
+      // r150+ margins; these names never occur on earlier releases.
+      case "Midspin": return JudgementKind.Auto;
+      case "XPerfect":
+      case "PerfectMinus":
+      case "PerfectPlus":
+        return JudgementKind.Perfect;
       case "TooEarly": return JudgementKind.TooEarly;
       case "TooLate": return JudgementKind.TooLate;
       case "Multipress": return JudgementKind.Multipress;

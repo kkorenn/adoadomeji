@@ -50,6 +50,9 @@ internal static class Program
     Equal(JudgementKind.Perfect, JudgementMapper.FromName("Perfect"), "perfect mapping");
     Equal(JudgementKind.OverPress, JudgementMapper.FromName("OverPress"), "overpress mapping");
     Equal(JudgementKind.Unknown, JudgementMapper.FromName("FutureMargin"), "unknown mapping");
+    Equal(JudgementKind.Perfect, JudgementMapper.FromName("XPerfect"), "r150 xperfect mapping");
+    Equal(JudgementKind.Perfect, JudgementMapper.FromName("PerfectPlus"), "r150 perfect+ mapping");
+    Equal(JudgementKind.Auto, JudgementMapper.FromName("Midspin"), "r150 midspin ignored");
 
     var tracker = new RunJudgementTracker();
     tracker.Record(JudgementKind.Auto);

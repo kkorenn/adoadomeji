@@ -61,18 +61,47 @@ internal sealed class GameplayPatchInstaller : IDisposable
       typeof(scrHitTextManager),
       "ShowHitText",
       nameof(GameplayPatchBridge.OverpressPostfix),
-      new[]
-      {
-        typeof(HitMargin),
-        typeof(scrPlanet),
-        typeof(float),
-      }
+      ShowHitTextParameters()
     );
 
     Capabilities.MouseSuppression = InstallMouseSuppressionPatches();
 
     _installed = true;
-    _logger.Info("[Harmony] Gameplay patches installed.");
+    _logger.Info("[Harmony] Gameplay patches installed for ADOFAI r" + GameRelease() + ".");
+  }
+
+  // r150 added an `int? msDiffNullable` parameter to scrHitTextManager.ShowHitText.
+  // Probe for the overload instead of gating on the release number: the signature
+  // is what the patch actually needs, and it can move independently of releases.
+  private static Type[] ShowHitTextParameters()
+  {
+    Type[] withMsDiff = { typeof(HitMargin), typeof(scrPlanet), typeof(float), typeof(int?) };
+    return AccessTools.Method(typeof(scrHitTextManager), "ShowHitText", withMsDiff) != null
+      ? withMsDiff
+      : new[] { typeof(HitMargin), typeof(scrPlanet), typeof(float) };
+  }
+
+  // Diagnostics only — never gate behaviour on this; probe for the member you
+  // need instead. releaseNumber is a const, so it must be read by reflection; a
+  // direct reference would bake in the release this assembly was compiled against.
+  private static int GameRelease()
+  {
+    Assembly game = typeof(scrController).Assembly;
+    foreach (string holder in new[] { "Releases", "GCNS" })
+    {
+      FieldInfo field = game.GetType(holder)?.GetField(
+        "releaseNumber",
+        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static
+      );
+      if (field == null)
+        continue;
+
+      object value = field.IsLiteral ? field.GetRawConstantValue() : field.GetValue(null);
+      if (value is int release)
+        return release;
+    }
+
+    return 0;
   }
 
   public void Uninstall()

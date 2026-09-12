@@ -14,9 +14,10 @@ internal static class GameplayPatchBridge
     return !SuppressGameMouse;
   }
 
-  internal static void MouseButtonPostfix(int button, ref bool __result)
+  // __0: the targets name this parameter either `button` or `buttonIndex`.
+  internal static void MouseButtonPostfix(int __0, ref bool __result)
   {
-    if (SuppressGameMouse && button == 0)
+    if (SuppressGameMouse && __0 == 0)
       __result = false;
   }
 
@@ -80,7 +81,9 @@ internal static class GameplayPatchBridge
   {
     try
     {
-      if (hitMargin != HitMargin.OverPress)
+      // Compare by name: r150 renumbered HitMargin, so the enum constant
+      // compiled in here would match the wrong margin on other releases.
+      if (hitMargin.ToString() != "OverPress")
         return;
 
       Judgements.Record(JudgementKind.OverPress);
