@@ -2,7 +2,7 @@
   "Id": "Adomeji",
   "DisplayName": "Adomeji",
   "Author": "koren (original), IMPL_ (modifications)",
-  "Version": "0.1.0",
+  "Version": "0.1.1",
   "AssemblyName": "Adomeji.Bootstrap.dll",
   "EntryMethod": "Adomeji.Bootstrap.Bootstrap.Load"
 }
